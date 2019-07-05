@@ -1,0 +1,44 @@
+.head1 {
+    text-align: center;
+    color: darkslateblue;
+    border: solid 1px whitesmoke;
+}
+
+#buttonArea {
+    border: solid 1px whitesmoke;
+
+}
+
+.inputArea {
+    border: solid 1px lightsteelblue;
+
+}
+
+.imageArea {
+    border: solid 1px whitesmoke;
+
+}
+
+body {
+    background-color: #bbbdcd;
+}
+
+button {
+    background-color: darkslateblue;
+}
+
+.genre-button-color {
+    color: #fafcfc;
+}
+
+#form {
+    color: darkslateblue;
+    
+
+}
+
+.submitty {
+    background-color: #212122;
+    color: #fafcfc;
+
+}
