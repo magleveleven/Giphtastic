@@ -19,6 +19,7 @@ var queryURLBase = "https://api.giphy.com/v1/gifs/search?api_key=" + apiKey;
 
 function giphyResults (numResults,queryURL) {
     console.log(numResults);
+    //console.log(queryURL);
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -27,21 +28,37 @@ function giphyResults (numResults,queryURL) {
             $("#imageArea").empty();
             for (var i = 0; i <response.data.length; i++) {
                 var imgURL = response.data[i].images.original_still.url;
-                //console.log(imgURL);
-                //console.log(response.data[i].images.original_still.url);
-                var imageArea = $('<div>');
-                imageArea.addClass("well");
+                var animImgURL = response.data[i].images.original.url;
+                var rating = response.data[i].rating;
+                console.log(imgURL);
+                console.log(animImgURL);
+                //console.log(rating);
+                var imageArea = $("<span>");
+
+                imageArea.addClass("well singleImage button-container");
                 imageArea.attr('id', 'imageNum-' + i);
                 $('#imageArea').append(imageArea);
-                $("#imageNum-" + i).append(image);
                 var image = $("<img>").attr("src", imgURL);
-                $(".imageArea").append(image);
-            }
-        })
-    }
+                $("#imageNum-" + i).append(image);
+                $("#imageArea").append(image);
+                $("#imageArea").append("rated " + rating);                
+                }
+                //image click to animate or make still
+                //need to source the animated URL, then run through function
+
+                if($("#imageArea").on('click', function(event) {
+                event.preventDefault();
+                image = $("<img>").attr("src", animImgURL);
+                $("#imageArea").append(image);
+                }));
+            })
+        
+    };
+    
+
+
 giphyResults ();
 
-//take user search value and create new API request, run results function
 $("#searchbtn").on('click',function() {
     console.log("searchingtesting");
     primaryGenre = $("#genre-input").val().trim();
@@ -50,6 +67,7 @@ $("#searchbtn").on('click',function() {
         console.log(newURL);
     giphyResults(numResults,newURL);
     return false;
+
 });
 
 //make the buttons
@@ -66,6 +84,7 @@ function buttonMaker() {
     genresButtons.val(genres[i]);
     }
 }
+
 buttonMaker() ;
 
 //add a button after search
@@ -77,6 +96,7 @@ $("#searchbtn").on("click", function(event) {
     buttonMaker();
     console.log(genres);
 });
+    
 
 //Took a long time to figure out how to point to the value and figure out how to use delegate,
 $("#buttonArea").on('click', ".genre-button", function(event) {
@@ -87,3 +107,4 @@ $("#buttonArea").on('click', ".genre-button", function(event) {
     console.log(newtwoURL);
     giphyResults(numResults,newtwoURL);
 });
+
